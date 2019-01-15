@@ -1,4 +1,3 @@
-
 const platform = new H.service.Platform({
     app_id: 'rcxiTKFgeUPkztA96NRr',
     app_code: 'HcWGPVFc9J_-9W29PCN4-Q'
@@ -25,7 +24,7 @@ const map = new H.Map(
 
 map.setBaseLayer(defaultLayers.satellite.traffic);
 
-window.addEventListener('resize', function(){
+window.addEventListener('resize', function () {
     map.getViewPort().resize();
 });
 
@@ -34,8 +33,8 @@ const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 const iconUrl = './images/marker-gelato.svg';
 
 const iconOptions = {
-    size: new H.math.Size(26,34),
-    anchor: new H.math.Point(14,34)
+    size: new H.math.Size(26, 34),
+    anchor: new H.math.Point(14, 34)
 };
 
 const markerOptions = {
@@ -45,3 +44,16 @@ const markerOptions = {
 const marker = new H.map.Marker(coordinates, markerOptions);
 
 map.addObject(marker);
+
+function updatePosition(event) {
+    const coordinates = {
+        lat: event.coords.latitude,
+        lng: event.coords.longitude
+    };
+    map.setCenter(coordinates);
+}
+
+const currentPosition = navigator.geolocation.getCurrentPosition;
+alert(currentPosition);
+navigator.geolocation.watchPosition(updatePosition);
+
